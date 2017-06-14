@@ -1,0 +1,4 @@
+rootProject.name = 'tribunal-framework'
+include 'tribunal-core'
+include 'tribunal-test'
+include 'tribunal-application'
