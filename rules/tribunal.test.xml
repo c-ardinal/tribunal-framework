@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rules>
+    <rule>
+        <regex>テスト</regex>
+        <class>tribunal.test.Test</class>
+        <executors>
+            <executor>anyone</executor>
+        </executors>
+    </rule>
+
+    <rule>
+        <regex>(.*)から(.*)</regex>
+        <class>tribunal.test.Test2</class>
+        <executors>
+            <executor>hoge</executor>
+            <executor>fuga</executor>
+        </executors>
+    </rule>
+</rules>

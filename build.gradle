@@ -1,0 +1,44 @@
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
+
+    sourceCompatibility = 1.8
+    group 'tribunal'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compile group: 'dom4j', name: 'dom4j', version: '1.6.1'
+        compile group: 'org.reflections', name: 'reflections', version: '0.9.10'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+    }
+}
+
+
+project(':tribunal-core'){
+    version '0.0.1'
+}
+
+
+project(':tribunal-test'){
+    version '0.0.1'
+    dependencies{
+        compile project(':tribunal-core')
+    }
+}
+
+
+project(":tribunal-application"){
+    apply plugin: 'application'
+    mainClassName = 'tribunal.application.Main'
+    version '0.0.1'
+    dependencies{
+        compile project(':tribunal-core')
+        compile project(':tribunal-test')
+        compile project(':tribunal-twitter')
+    }
+}
+
+
