@@ -37,7 +37,6 @@ project(":tribunal-application"){
     dependencies{
         compile project(':tribunal-core')
         compile project(':tribunal-test')
-        compile project(':tribunal-twitter')
     }
 }
 
