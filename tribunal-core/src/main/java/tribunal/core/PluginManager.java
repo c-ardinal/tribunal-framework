@@ -43,14 +43,14 @@ public class PluginManager {
     }
 
 
-    public void call(String className, String[] args) {
+    public void call(String className, Object[] args) {
         try {
             Object inst = pluginMap.get(className);
             Class<?> cl = Class.forName(className);
             log.debug("Invoke method of : " + cl.toString() + ".call()");
-            for(String arg: args)
+            for(Object arg: args)
                 log.debug("Argument : " + arg);
-            Method m = cl.getMethod("call", new Class[]{String[].class});
+            Method m = cl.getMethod("call", new Class[]{Object[].class});
             m.invoke(inst, new Object[]{args});
             return;
         } catch (Exception e) {

@@ -20,7 +20,7 @@ public class Plugin {
     }
 
 
-    public void call(String[] args){
+    public void call(Object[] args){
 
     }
 

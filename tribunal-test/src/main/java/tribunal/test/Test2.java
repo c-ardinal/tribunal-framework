@@ -11,7 +11,7 @@ public class Test2 extends Plugin {
 
 
     @Override
-    public void call(String[] args){
+    public void call(Object[] args){
         System.out.println(this.getClass().getName() + " - Test2 Plugin call.");
     }
 
