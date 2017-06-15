@@ -3,6 +3,7 @@
 /.idea
 /uml
 /*/build
+/plugins/*.jar
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
