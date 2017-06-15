@@ -51,7 +51,7 @@ public class RuleService {
 
 
     public List containsRule(String context) {
-        LinkedList<String> result = null;
+        LinkedList<Object> result = null;
         for(Rule rule: this.allRuleList){
             result = new LinkedList<>();
             String regex = rule.getRuleRegex();
@@ -72,7 +72,7 @@ public class RuleService {
 
 
     public List containsRule(String context, String executor) {
-        LinkedList<String> result = null;
+        LinkedList<Object> result = null;
         for (Rule rule : this.allRuleList) {
             result = new LinkedList<>();
             String regex = rule.getRuleRegex();
