@@ -23,7 +23,6 @@ project(':tribunal-core'){
 
 
 project(':tribunal-test'){
-    version '0.0.1'
     dependencies{
         compile project(':tribunal-core')
     }
@@ -33,7 +32,6 @@ project(':tribunal-test'){
 project(":tribunal-application"){
     apply plugin: 'application'
     mainClassName = 'tribunal.application.Main'
-    version '0.0.1'
     dependencies{
         compile project(':tribunal-core')
         compile project(':tribunal-test')
@@ -41,3 +39,13 @@ project(":tribunal-application"){
 }
 
 
+task jarCopy{
+    def projectsName = ['tribunal-test']
+    for(p in projectsName) {
+        copy {
+            from p + '/build/libs'
+            into 'plugins'
+            include '*.jar'
+        }
+    }
+}
