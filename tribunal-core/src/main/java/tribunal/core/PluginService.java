@@ -60,15 +60,19 @@ public class PluginService {
      */
     public void call(List list) {
         try {
-            if (!list.get(0).equals("NotFound")) {
+            if (list.get(0).equals("NotFound")) {
+                log.debug("Match rule not found.");
+            }
+            else if(list.get(0).equals("PermissionError")){
+                log.debug("Permission error.");
+            }
+            else{
                 String className = list.get(0).toString();
                 log.debug(className);
                 list.remove(0);
                 String[] args = (String[]) list.toArray(new String[list.size()]);
                 PluginManager inst = (PluginManager) pluginManagerMap.get(Class.forName(className).getPackage().getName());
                 inst.call(className, args);
-            } else {
-                log.debug("Can not plugin call.");
             }
         }catch(Exception e){
             log.error(e);

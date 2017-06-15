@@ -84,8 +84,8 @@ public class RuleService {
                         result.add(rule.getClassName());
                         for (int i = 1; i<=m.groupCount(); i++)
                             result.add(m.group(i));
+                        return result;
                     }
-                    return result;
                 }
                 result.add("PermissionError");
             } else {
