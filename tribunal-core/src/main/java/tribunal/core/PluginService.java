@@ -70,7 +70,7 @@ public class PluginService {
                 String className = list.get(0).toString();
                 log.debug(className);
                 list.remove(0);
-                String[] args = (String[]) list.toArray(new String[list.size()]);
+                Object[] args = list.toArray(new String[list.size()]);
                 PluginManager inst = (PluginManager) pluginManagerMap.get(Class.forName(className).getPackage().getName());
                 inst.call(className, args);
             }
