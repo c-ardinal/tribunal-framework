@@ -43,7 +43,8 @@ public class PluginManager {
     }
 
 
-    public void call(String className, Object[] args) {
+    public Object call(String className, Object[] args) {
+        Object result = null;
         try {
             Object inst = pluginMap.get(className);
             Class<?> cl = Class.forName(className);
@@ -51,10 +52,10 @@ public class PluginManager {
             for(Object arg: args)
                 log.debug("Argument : " + arg);
             Method m = cl.getMethod("call", new Class[]{Object[].class});
-            m.invoke(inst, new Object[]{args});
-            return;
+            result = m.invoke(inst, new Object[]{args});
         } catch (Exception e) {
             log.error(e);
         }
+        return result;
     }
 }

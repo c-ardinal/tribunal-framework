@@ -17,5 +17,9 @@ public class Main {
 
         System.out.println("\n===== 来週から夏休み : " + RuleService.getInstance().containsRule("来週から夏休み") + " =====");
         PluginService.getInstance().call(RuleService.getInstance().containsRule("来週から夏休み"));
+
+        System.out.println("\n===== 猫に小判 : " + RuleService.getInstance().containsRule("猫に小判") + " =====");
+        String result = (String)PluginService.getInstance().call(RuleService.getInstance().containsRule("猫に小判"));
+        System.out.println(result);
     }
 }

@@ -16,4 +16,12 @@
             <executor>fuga</executor>
         </executors>
     </rule>
+
+    <rule>
+        <regex>猫</regex>
+        <class>tribunal.test.Test3</class>
+        <executors>
+            <executor>anyone</executor>
+        </executors>
+    </rule>
 </rules>
