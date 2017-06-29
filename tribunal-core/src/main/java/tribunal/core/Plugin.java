@@ -20,8 +20,8 @@ public class Plugin {
     }
 
 
-    public void call(Object[] args){
-
+    public Object call(Object[] args){
+        return null;
     }
 
 }

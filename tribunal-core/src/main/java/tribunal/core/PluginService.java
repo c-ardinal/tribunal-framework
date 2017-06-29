@@ -58,7 +58,8 @@ public class PluginService {
     /**
      * プラグインを呼び出す
      */
-    public void call(List list) {
+    public Object call(List list) {
+        Object result = null;
         try {
             if (list.get(0).equals("NotFound")) {
                 log.debug("Match rule not found.");
@@ -72,11 +73,12 @@ public class PluginService {
                 list.remove(0);
                 Object[] args = list.toArray(new Object[list.size()]);
                 PluginManager inst = (PluginManager) pluginManagerMap.get(Class.forName(className).getPackage().getName());
-                inst.call(className, args);
+                result = inst.call(className, args);
             }
         }catch(Exception e){
             log.error(e);
         }
+        return result;
     }
 
 

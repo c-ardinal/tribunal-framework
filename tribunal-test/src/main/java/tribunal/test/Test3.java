@@ -2,7 +2,7 @@ package tribunal.test;
 
 import tribunal.core.Plugin;
 
-public class Test2 extends Plugin {
+public class Test3 extends Plugin {
 
     @Override
     public void init(){
@@ -12,8 +12,8 @@ public class Test2 extends Plugin {
 
     @Override
     public Object call(Object[] args){
-        System.out.println(this.getClass().getName() + " - Test2 Plugin call.");
-        return null;
+        String result = this.getClass().getName() + " - Test3 Plugin call.";
+        return result;
     }
 
 }
