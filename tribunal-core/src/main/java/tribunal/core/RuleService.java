@@ -88,6 +88,7 @@ public class RuleService {
                     }
                 }
                 result.add("PermissionError");
+                return result;
             } else {
                 result.add("NotFound");
             }
