@@ -4,7 +4,6 @@ import tribunal.tool.Logger;
 import tribunal.tool.Scanner;
 
 import java.io.File;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,7 @@ public class PluginService {
 
     private Logger log = new Logger(this.getClass().getName());
     private static PluginService instance;
-    private Map<String, Object> pluginManagerMap = new HashMap<>();
+    private static Map<String, Object> pluginManagerMap;
     File[] jars;
 
 
@@ -25,6 +24,7 @@ public class PluginService {
     public PluginService(){
         // Plugin Jarのスキャンを行う
         this.jars = Scanner.getInstance(log).getJars();
+        this.pluginManagerMap = new HashMap<>();
     }
 
 
@@ -69,10 +69,16 @@ public class PluginService {
             }
             else{
                 String className = list.get(0).toString();
-                log.debug(className);
+                String[] parts = className.split("\\.", 0);
+                String packageName = "";
+                for(int i=0; i<parts.length-1; i++){
+                    packageName += parts[i] + ".";
+                }
+                packageName = packageName.substring(0, packageName.length()-1);
+                log.debug(packageName);
                 list.remove(0);
                 Object[] args = list.toArray(new Object[list.size()]);
-                PluginManager inst = (PluginManager) pluginManagerMap.get(Class.forName(className).getPackage().getName());
+                PluginManager inst = (PluginManager) pluginManagerMap.get(packageName);
                 result = inst.call(className, args);
             }
         }catch(Exception e){
@@ -96,24 +102,22 @@ public class PluginService {
                         String packageName = pm.getPackage().getName();
                         inst = pm.newInstance();
                         pluginManagerMap.put(packageName, inst);
+                        log.debug("Generate instance: " + inst.getClass().getName());
                     }
                     else{
                         inst = pluginManagerMap.get(pm.getPackage().getName());
+                        log.debug("Instance call: " + inst.getClass().getName());
                     }
 
                     log.debug("Invoke method of : " + pm.toString() + "." + methodName +"()");
-                    if(methodName.equals("init")) {
-                        Method m = pm.getMethod(methodName, new Class[]{String.class});
-                        m.invoke(inst, jar.getName());
-                    }
-                    else if(methodName.equals("start")) {
-                        Method m = pm.getMethod(methodName);
-                        m.invoke(inst);
-                    }
+                    if(methodName.equals("init"))
+                        ((PluginManager) inst).init(jar.getName());
+                    else if(methodName.equals("start"))
+                        ((PluginManager) inst).start();
                 }
             } catch (Exception e) {
                 log.debug("Load failed : " + jar.getName());
-                e.printStackTrace();
+                log.error(e);
             }
         }
     }
