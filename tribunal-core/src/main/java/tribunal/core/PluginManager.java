@@ -4,7 +4,6 @@ package tribunal.core;
 import tribunal.tool.Logger;
 import tribunal.tool.Scanner;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,13 +27,12 @@ public class PluginManager {
                 pluginMap.put(className, instance);
 
                 log.debug("Invoke method of : " + plugin.getName() + ".init()");
-                Method m = plugin.getMethod("init");
-                m.invoke(instance);
+                ((Plugin) instance).init();
+                log.debug("Plugin init complete.");
             }
         } catch (Exception e) {
-            log.debug("" + e.getMessage());
+            log.error(e);
         }
-        log.debug("Plugin init complete.");
     }
 
 
@@ -47,12 +45,10 @@ public class PluginManager {
         Object result = null;
         try {
             Object inst = pluginMap.get(className);
-            Class<?> cl = Class.forName(className);
-            log.debug("Invoke method of : " + cl.toString() + ".call()");
+            log.debug("Invoke method of : " + className + ".call()");
             for(Object arg: args)
                 log.debug("Argument : " + arg);
-            Method m = cl.getMethod("call", new Class[]{Object[].class});
-            result = m.invoke(inst, new Object[]{args});
+            result = ((Plugin) inst).call(args);
         } catch (Exception e) {
             log.error(e);
         }
