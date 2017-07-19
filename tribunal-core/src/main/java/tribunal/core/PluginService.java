@@ -63,9 +63,11 @@ public class PluginService {
         try {
             if (list.get(0).equals("NotFound")) {
                 log.debug("Match rule not found.");
+                result = "Match rule not found.";
             }
             else if(list.get(0).equals("PermissionError")){
                 log.debug("Permission error.");
+                result = "Permission error.";
             }
             else{
                 String className = list.get(0).toString();
@@ -83,6 +85,7 @@ public class PluginService {
             }
         }catch(Exception e){
             log.error(e);
+            result = e.getMessage();
         }
         return result;
     }
