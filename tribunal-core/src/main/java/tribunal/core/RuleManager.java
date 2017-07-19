@@ -1,7 +1,6 @@
 package tribunal.core;
 
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import tribunal.tool.Logger;
@@ -22,33 +21,29 @@ public class RuleManager {
     }
 
 
-    public LinkedList<Rule> loadRules(){
+    public LinkedList<Rule> loadRules() throws Exception {
         log.debug("Rules load start.");
         SAXReader reader = new SAXReader();
-        try {
-            String xmlDir = System.getProperty("user.dir") + "/../rules/" + this.getClass().getPackage().getName() + ".xml";
-            log.debug("Load from : " + xmlDir);
-            Document document = reader.read(xmlDir);
-            Element root = document.getRootElement();
-            for (Iterator i = root.elementIterator(); i.hasNext();) {
-                Rule rule = new Rule();
-                log.debug("========== Load data ==========");
-                Element element = (Element) i.next();
-                rule.setRuleRegex(element.elementText("regex"));
-                log.debug("Regex : " + rule.getRuleRegex());
-                rule.setClassName(element.elementText("class"));
-                log.debug("Class : " + rule.getClassName());
-                LinkedList executors = new LinkedList<>();
-                for(Object e: element.element("executors").elements("executor")){
-                    executors.add(((Element) e).getStringValue());
-                    log.debug("Executor : " + ((Element) e).getStringValue());
-                }
-                rule.setExecutorIds(executors);
-                this.pluginRuleList.add(rule);
-                log.debug("=================================");
+        String xmlDir = System.getProperty("user.dir") + "/../rules/" + this.getClass().getPackage().getName() + ".xml";
+        log.debug("Load from : " + xmlDir);
+        Document document = reader.read(xmlDir);
+        Element root = document.getRootElement();
+        for (Iterator i = root.elementIterator(); i.hasNext();) {
+            Rule rule = new Rule();
+            log.debug("========== Load data ==========");
+            Element element = (Element) i.next();
+            rule.setRuleRegex(element.elementText("regex"));
+            log.debug("Regex : " + rule.getRuleRegex());
+            rule.setClassName(element.elementText("class"));
+            log.debug("Class : " + rule.getClassName());
+            LinkedList executors = new LinkedList<>();
+            for(Object e: element.element("executors").elements("executor")){
+                executors.add(((Element) e).getStringValue());
+                log.debug("Executor : " + ((Element) e).getStringValue());
             }
-        } catch (DocumentException e) {
-            log.error(e);
+            rule.setExecutorIds(executors);
+            this.pluginRuleList.add(rule);
+            log.debug("=================================");
         }
         log.debug("Rules load finished.");
         return this.pluginRuleList;
