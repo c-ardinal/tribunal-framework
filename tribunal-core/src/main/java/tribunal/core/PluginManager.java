@@ -18,16 +18,16 @@ public class PluginManager {
 
 
     public void init(String jarName) throws Exception {
-        log.debug("Plugin init start.");
+        log.debugln("Plugin init start.");
         List<Class<?>> plugins = Scanner.getInstance(log).scanPlugins(jarName, Plugin.class);
         for(Class<?> plugin: plugins){
             String className = plugin.getName();
             Object instance = plugin.newInstance();
             pluginMap.put(className, instance);
 
-            log.debug("Invoke method of : " + plugin.getName() + ".init()");
+            log.debugln("Invoke method of : " + plugin.getName() + ".init()");
             ((Plugin) instance).init();
-            log.debug("Plugin init complete.");
+            log.debugln("Plugin init complete.");
         }
     }
 
@@ -40,9 +40,9 @@ public class PluginManager {
     public Object call(String className, Object[] args) throws Exception {
         Object result = null;
         Object inst = pluginMap.get(className);
-        log.debug("Invoke method of : " + className + ".call()");
+        log.debugln("Invoke method of : " + className + ".call()");
         for(Object arg: args)
-            log.debug("Argument : " + arg);
+            log.debugln("Argument : " + arg);
         result = ((Plugin) inst).call(args);
         return result;
     }

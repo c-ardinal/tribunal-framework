@@ -12,25 +12,49 @@ public class Logger {
         this.packageName = packageName;
     }
 
-    public void debug(String message){
-        SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        String date = d.format(new Date());
-        System.out.println("[" + date + "] <" + packageName + "> " + message);
+    public void print(Object message){
+        System.out.print(StringColor.RESET + message);
     }
 
-    public void error(String message, Exception e){
+    public void println(Object message){
+        System.out.println(StringColor.RESET + message);
+    }
+
+    public void debug(Object message){
+        this.debug(message, StringColor.RESET);
+    }
+
+    public void debug(Object message, String color){
         SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         String date = d.format(new Date());
-        System.out.println("[" + date + "] <" + packageName + "> " + message);
-        date = d.format(new Date());
-        System.out.println("[" + date + "] <" + packageName + "> " + e.getMessage());
+        System.out.print(color + "[" + date + "] <" + packageName + "> " + message);
+    }
+
+    public void debugln(Object message){
+        this.debugln(message, StringColor.RESET);
+    }
+
+    public void debugln(Object message, String color){
+        SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        String date = d.format(new Date());
+        System.out.println(color + "[" + date + "] <" + packageName + "> " + message);
+    }
+
+    public void reset(){
+        this.print(StringColor.RESET);
+    }
+
+    public void error(Object message, Exception e){
+        this.debugln(message, StringColor.RED);
+        this.debug("", StringColor.RED);
+        e.printStackTrace();
+        this.reset();
     }
 
     public void error(Exception e){
-        SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        String date = d.format(new Date());
-        System.out.print("[" + date + "] <" + packageName + "> ");
+        this.debug("", StringColor.RED);
         e.printStackTrace();
+        this.reset();
     }
 
 }

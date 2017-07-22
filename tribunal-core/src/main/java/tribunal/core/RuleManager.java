@@ -22,30 +22,30 @@ public class RuleManager {
 
 
     public LinkedList<Rule> loadRules() throws Exception {
-        log.debug("Rules load start.");
+        log.debugln("Rules load start.");
         SAXReader reader = new SAXReader();
         String xmlDir = System.getProperty("user.dir") + "/../rules/" + this.getClass().getPackage().getName() + ".xml";
-        log.debug("Load from : " + xmlDir);
+        log.debugln("Load from : " + xmlDir);
         Document document = reader.read(xmlDir);
         Element root = document.getRootElement();
         for (Iterator i = root.elementIterator(); i.hasNext();) {
             Rule rule = new Rule();
-            log.debug("========== Load data ==========");
+            log.debugln("========== Load data ==========");
             Element element = (Element) i.next();
             rule.setRuleRegex(element.elementText("regex"));
-            log.debug("Regex : " + rule.getRuleRegex());
+            log.debugln("Regex : " + rule.getRuleRegex());
             rule.setClassName(element.elementText("class"));
-            log.debug("Class : " + rule.getClassName());
+            log.debugln("Class : " + rule.getClassName());
             LinkedList executors = new LinkedList<>();
             for(Object e: element.element("executors").elements("executor")){
                 executors.add(((Element) e).getStringValue());
-                log.debug("Executor : " + ((Element) e).getStringValue());
+                log.debugln("Executor : " + ((Element) e).getStringValue());
             }
             rule.setExecutorIds(executors);
             this.pluginRuleList.add(rule);
-            log.debug("=================================");
+            log.debugln("=================================");
         }
-        log.debug("Rules load finished.");
+        log.debugln("Rules load finished.");
         return this.pluginRuleList;
     }
 
