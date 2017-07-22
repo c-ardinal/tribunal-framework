@@ -62,11 +62,11 @@ public class PluginService {
         Object result = null;
         try {
             if (list.get(0).equals("NotFound")) {
-                log.debug("Match rule not found.");
+                log.debugln("Match rule not found.");
                 result = "Match rule not found.";
             }
             else if(list.get(0).equals("PermissionError")){
-                log.debug("Permission error.");
+                log.debugln("Permission error.");
                 result = "Permission error.";
             }
             else{
@@ -77,7 +77,7 @@ public class PluginService {
                     packageName += parts[i] + ".";
                 }
                 packageName = packageName.substring(0, packageName.length()-1);
-                log.debug(packageName);
+                log.debugln(packageName);
                 list.remove(0);
                 Object[] args = list.toArray(new Object[list.size()]);
                 PluginManager inst = (PluginManager) pluginManagerMap.get(packageName);
@@ -105,21 +105,21 @@ public class PluginService {
                         String packageName = pm.getPackage().getName();
                         inst = pm.newInstance();
                         pluginManagerMap.put(packageName, inst);
-                        log.debug("Generate instance: " + inst.getClass().getName());
+                        log.debugln("Generate instance: " + inst.getClass().getName());
                     }
                     else{
                         inst = pluginManagerMap.get(pm.getPackage().getName());
-                        log.debug("Instance call: " + inst.getClass().getName());
+                        log.debugln("Instance call: " + inst.getClass().getName());
                     }
 
-                    log.debug("Invoke method of : " + pm.toString() + "." + methodName +"()");
+                    log.debugln("Invoke method of : " + pm.toString() + "." + methodName +"()");
                     if(methodName.equals("init"))
                         ((PluginManager) inst).init(jar.getName());
                     else if(methodName.equals("start"))
                         ((PluginManager) inst).start();
                 }
             } catch (Exception e) {
-                log.debug("Load failed : " + jar.getName());
+                log.debugln("Load failed : " + jar.getName());
                 log.error(e);
             }
         }

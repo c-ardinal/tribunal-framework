@@ -12,24 +12,34 @@ public class Logger {
         this.packageName = packageName;
     }
 
-    public void debug(String message){
+    public void print(Object message){
+        System.out.print(message);
+    }
+
+    public void println(Object message){
+        System.out.println(message);
+    }
+
+    public void debug(Object message){
+        SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        String date = d.format(new Date());
+        System.out.print("[" + date + "] <" + packageName + "> " + message);
+    }
+
+    public void debugln(Object message){
         SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         String date = d.format(new Date());
         System.out.println("[" + date + "] <" + packageName + "> " + message);
     }
 
-    public void error(String message, Exception e){
-        SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        String date = d.format(new Date());
-        System.out.println("[" + date + "] <" + packageName + "> " + message);
-        date = d.format(new Date());
-        System.out.println("[" + date + "] <" + packageName + "> " + e.getMessage());
+    public void error(Object message, Exception e){
+        this.debugln(message);
+        this.debug("");
+        e.printStackTrace();
     }
 
     public void error(Exception e){
-        SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        String date = d.format(new Date());
-        System.out.print("[" + date + "] <" + packageName + "> ");
+        this.debug("");
         e.printStackTrace();
     }
 

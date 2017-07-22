@@ -38,13 +38,13 @@ public class RuleService {
             try {
                 List<Class<?>> plugins = Scanner.getInstance(log).scanPlugins(jar.getName(), RuleManager.class);
                 for (Class<?> plugin : plugins) {
-                    log.debug("Invoke method of : " + plugin.getName() + ".init()");
+                    log.debugln("Invoke method of : " + plugin.getName() + ".init()");
                     Method m = plugin.getMethod("loadRules");
                     LinkedList<Rule> result = ((LinkedList<Rule>) m.invoke(plugin.newInstance()));
                     this.allRuleList.addAll(result);
                 }
             } catch (Exception e) {
-                log.debug("" + e.getMessage());
+                log.debugln("" + e.getMessage());
             }
         }
     }

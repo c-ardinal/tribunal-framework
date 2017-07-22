@@ -39,7 +39,7 @@ public class Scanner {
     public File[] getJars() {
         if(jars == null) {
 
-            log.debug("Scan start : " + System.getProperty("user.dir") + "/../plugins");
+            log.debugln("Scan start : " + System.getProperty("user.dir") + "/../plugins");
             File jarDir = new File(System.getProperty("user.dir") + "/../plugins");
 
             jars = jarDir.listFiles(new FileFilter() {
@@ -50,14 +50,14 @@ public class Scanner {
             });
 
             if (jars == null) {
-                log.debug("Plugin is not found.");
+                log.debugln("Plugin is not found.");
                 System.exit(1);
             }
 
             for (File jar : jars)
-                log.debug("Find => " + jar.getName());
+                log.debugln("Find => " + jar.getName());
 
-            log.debug("Scan complete.");
+            log.debugln("Scan complete.");
         }
         return jars;
     }
@@ -66,9 +66,9 @@ public class Scanner {
     public List<Class<?>> scanPlugins(String jarName, Class searchTarget) {
         List<Class<?>> plugins = null;
         try {
-            log.debug("Load start : " + System.getProperty("user.dir") + "/../plugins/" + jarName);
+            log.debugln("Load start : " + System.getProperty("user.dir") + "/../plugins/" + jarName);
             File pluginDir = new File(System.getProperty("user.dir") + "/../plugins/" + jarName);
-            log.debug("Load success : " + pluginDir.getName());
+            log.debugln("Load success : " + pluginDir.getName());
             plugins = loadClassesInJar(pluginDir.toString(), searchTarget);
         } catch (Exception e) {
             log.error(e);
