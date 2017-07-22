@@ -12,8 +12,7 @@ public class Test3 extends Plugin {
 
     @Override
     public Object call(Object[] args){
-        String result = this.getClass().getName() + " - Test3 Plugin call.";
-        return result;
+        return this.getClass().getName() + " - Test3 Plugin call.";
     }
 
 }
