@@ -13,34 +13,48 @@ public class Logger {
     }
 
     public void print(Object message){
-        System.out.print(message);
+        System.out.print(StringColor.RESET + message);
     }
 
     public void println(Object message){
-        System.out.println(message);
+        System.out.println(StringColor.RESET + message);
     }
 
     public void debug(Object message){
+        this.debug(message, StringColor.RESET);
+    }
+
+    public void debug(Object message, String color){
         SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         String date = d.format(new Date());
-        System.out.print("[" + date + "] <" + packageName + "> " + message);
+        System.out.print(color + "[" + date + "] <" + packageName + "> " + message);
     }
 
     public void debugln(Object message){
+        this.debugln(message, StringColor.RESET);
+    }
+
+    public void debugln(Object message, String color){
         SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         String date = d.format(new Date());
-        System.out.println("[" + date + "] <" + packageName + "> " + message);
+        System.out.println(color + "[" + date + "] <" + packageName + "> " + message);
+    }
+
+    public void reset(){
+        this.print(StringColor.RESET);
     }
 
     public void error(Object message, Exception e){
-        this.debugln(message);
-        this.debug("");
+        this.debugln(message, StringColor.RED);
+        this.debug("", StringColor.RED);
         e.printStackTrace();
+        this.reset();
     }
 
     public void error(Exception e){
-        this.debug("");
+        this.debug("", StringColor.RED);
         e.printStackTrace();
+        this.reset();
     }
 
 }
