@@ -27,6 +27,8 @@ public class Logger {
     }
 
     public void println(String message, String color) {
+        if (color == null)
+            color = "";
         System.out.println(color + message);
     }
 
@@ -36,6 +38,8 @@ public class Logger {
     }
 
     public void debug(String message, String color) {
+        if (color == null)
+            color = "";
         SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         String date = d.format(new Date());
         System.out.print(color + "[" + date + "] <" + packageName + "> " + message);
@@ -47,6 +51,8 @@ public class Logger {
     }
 
     public void debugln(String message, String color) {
+        if (color == null)
+            color = "";
         SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         String date = d.format(new Date());
         System.out.println(color + "[" + date + "] <" + packageName + "> " + message);
