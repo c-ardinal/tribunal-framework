@@ -1,14 +1,17 @@
 # tribunal-framework
 
+# 注意
+### このプログラムは[こちら](https://github.com/TribunalProject)のプロジェクトに移行します。
+
 # 概要
 tribunal-frameworkは「プラグイン」と「ルール」で簡単に拡張する事が可能なチャットボットフレームワークです。
 
 # 特徴
-- チャットボットの開発に必要な「文章を解析する機能」が実装済み。。
+- チャットボットの開発に必要な「文章を解析する機能」が実装済み。XML形式のファイルに解析したい文章にマッチする正規表現を「ルール」として記述していくだけ。
 
-- あなたが書くのは「どんな文章を解析させたいか(ルール)」と「どんな処理をさせたいか(プラグイン)」の2つ。
+- あなたが書くのは「どんな文章を解析させたいか(ルール)」と「どんな処理をさせたいか(プラグイン)」の2つだけ。
 
-- プログラムの修正はプラグイン(Jarファイル)単位もしくはルールの変更をするだけでOK。
+- プログラムの修正はプラグイン(Jarファイル)単位もしくはルールの変更をするだけ。
 
 # 構造
   - /plugins ... ここに入れたJarファイルをプラグインとして自動登録する
@@ -31,13 +34,12 @@ PluginManager登録時にJar内の各Pluginが初期化される。
 2. RuleService初期化時に各Jar内のRuleManagerを探して登録。  
 RuleManager登録時にルール(XMLファイル)を読み込む。  
 
-3. PluginServiceを開始するとPluginManagerに記述された任意のプログラム開始処理が実行される。
+3. PluginServiceを開始するとPluginManagerに記述された任意の処理が実行される。  
 
-4. ルールにマッチする文章が与えられた時、PluginService経由で任意のPluginが実行される。
+4. ルールにマッチする文章が与えられた時、任意のPluginが実行される。
 
 # 実行
 ```bash
-./gradlew clean
-./gradlew build jarCopy
-./gradlew run
+./gradlew build
+./gradlew :tribunal-application:run
 ```
